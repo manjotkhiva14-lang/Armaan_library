@@ -157,6 +157,22 @@ class Management:
             print(f" Seat alloted : {st.seat_allotted}")
         else:
             print("Student not found")
+
+    def search_by_name(self):
+        name = input("Enter the name of the student you want to search").strip()
+        found = False
+        for student in self.students.values():
+            if name == student.name:
+                found = True
+    
+                print(f" Student name : {student.name}")
+                print(f" Student id : {student.student_id}")
+                print(f" Student contact : {student.contact}")
+                print(f" Shift time : {student.shift}")
+                print(f" Seat alloted : {student.seat_allotted}")
+        if not found:
+            print("Student not found")
+
                 
     def save_students(self):
         data = []

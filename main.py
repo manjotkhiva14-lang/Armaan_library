@@ -11,7 +11,8 @@ while True:
     print("3. unallot seat")
     print("4. check seat")
     print("5. check student")
-    print("6. exit")
+    print("6. search student")
+    print("7. exit")
 
     i = input("Enter the choice")
     
@@ -32,6 +33,8 @@ while True:
     elif i == "5":
         man.check_student()
     elif i == "6":
+        man.search_by_name()
+    elif i == "7":
         man.export_students_to_csv()
         print("Program exited")
         break
