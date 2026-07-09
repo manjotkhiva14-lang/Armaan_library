@@ -33,5 +33,12 @@
         "contact": "7658850664",
         "shift": "9-2",
         "seat_allotted": 3
+    },
+    {
+        "name": "manjot singh",
+        "student_id": 4455,
+        "contact": "7658850664",
+        "shift": "9-2",
+        "seat_allotted": null
     }
 ]

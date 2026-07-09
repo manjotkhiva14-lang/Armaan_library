@@ -10,9 +10,11 @@ class Management:
         for i in range(1,111):
             seat = Seat(i)
             self.seats[i] = seat
+        
+        
         self.shifts = {
             1 : "9-2",
-            2 : "2-7",
+            2 : "2-7",  
             3 : "9-7"
         }
         
@@ -87,7 +89,7 @@ class Management:
      
                 print(f" Seat number : {seat.seat_number} is allotted for {shift} to {st.name}")
                 return
-        print("No seats are available for this shift")
+        print("No seats available for this shift")
     
     def unallot_seat(self):
         student_id = self.get_valid_int("Enter the id of the student")

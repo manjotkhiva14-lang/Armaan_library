@@ -128,13 +128,15 @@ class Dashboard:
         self.df["seat_allotted"] = self.df["seat_allotted"].astype("Int64")
 
     def search_student(self):
+
         name = input("Enter the name of the student you want to search").lower()
+
         st = self.df[self.df["name"].str.lower() == name ]
         if st.empty:
             print("Student not found")
             return
         print(st)
-      
+    
     
     def generate_summary(self):
         self.summary = self.df.groupby("shift").agg({
@@ -180,12 +182,18 @@ class Dashboard:
         plt.title("Allocated seats")
         plt.show()
 
-        self.summary.columns = [ "Students" , "Allocated" , "Efficiency" , "Status"]
-
         print(self.summary)
 
     def search_id(self):
-        student_id = int(input("Enter the id of the student you want to search"))
+        while True:
+            try:
+                student_id = int(input("Enter the id of the student you want to search"))
+                if student_id <= 0:
+                    print("invalid int ")
+                    continue
+                break
+            except ValueError:
+                print("Please enter a valid number")
         sm = self.df[self.df["student_id"] == student_id ]
         if sm.empty:
             print("Student id not found")
@@ -219,6 +227,11 @@ class Dashboard:
             print("Shift not found")
             return
         print(sh)
+
+    def save_data(self):
+        self.df.to_csv("students_full.csv" , index = False)
+
+
     def export_report(self):
         self.summary = self.summary.reset_index()
         self.summary.to_csv("dashboard_repot.csv" , index= False )

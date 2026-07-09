@@ -31,6 +31,7 @@ while True:
 
     elif i == "4":
         dash.delete_student()
+        dash.save_data()
 
     elif i == "5":
         dash.total_students()

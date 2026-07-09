@@ -2,7 +2,6 @@ from management import Management
 man = Management()
 man.load_students()
 man.load_seats()
-man.load_students_from_csv()
 man.save_students()
 while True:
     print(" *****ARMAAN LIBRARY***** ")
