@@ -201,7 +201,16 @@ class Dashboard:
         print(sm)
 
     def delete_student(self):
-        student_id = int(input("Enter the id of the student you want to delete"))
+        while True:
+            try:
+                student_id = int(input("Enter the id of the student you want to search"))
+                if student_id <= 0:
+                    print("invalid int ")
+                    continue
+                break
+            except ValueError:
+                print("Please enter a valid number")
+        
         ht = self.df[self.df ["student_id"] == student_id]
         
         if ht.empty:
