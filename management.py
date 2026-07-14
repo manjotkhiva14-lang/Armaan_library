@@ -90,6 +90,32 @@ class Management:
                 print(f" Seat number : {seat.seat_number} is allotted for {shift} to {st.name}")
                 return
         print("No seats available for this shift")
+
+    def allot_seat_web(self,student_id):
+        st = self.students.get(student_id)
+
+        if st is None:
+            return "Student id not found "
+        if st.seat_allotted is not None:
+            return "Student already have a seat"
+        shift = st.shift
+        for seat in self.seats.values():
+            if shift == "9-7":
+                if seat.allotted_to["9-2"] is not None or seat.allotted_to["2-7"] is not None:
+                    continue
+            if shift in ["9-2" , "2-7"]:
+                if seat.allotted_to["9-7"] is not None:
+                    continue
+            if seat.allotted_to[shift] is None:
+                seat.allotted_to[shift] = st.student_id
+                st.seat_allotted = seat.seat_number
+                self.save_students()
+                self.save_seats()
+     
+                return f" Seat number : {seat.seat_number} is allotted for {shift} to {st.name}"
+                
+        return("No seats available for this shift")
+
     
     def unallot_seat(self):
         student_id = self.get_valid_int("Enter the id of the student")
@@ -115,6 +141,32 @@ class Management:
       
         
         print("Seat unallotted successfully")
+
+    def unallot_seat_web(self,student_id):
+
+        st = self.students.get(student_id)
+        
+        if st is None:
+            return "Student not found"
+        
+        
+        if st.seat_allotted is None:
+            return "Student didnt have any seat"
+        
+        shift = st.shift
+        
+        seat = self.seats.get(st.seat_allotted)
+        if seat is None:
+            return "Seat data error"
+
+        
+        seat.allotted_to[shift] = None
+        st.seat_allotted = None
+        self.save_students()
+        self.save_seats()
+      
+        
+        return "Seat unallotted successfully"
         
     
     def check_seat(self):
@@ -145,6 +197,34 @@ class Management:
         if is_empty:
             print("Seat is empty")
 
+    def check_seat_web(self,seat_number):
+        
+        seat = self.seats.get(seat_number)
+        
+        if seat is None:
+            return "Seat not found"
+        
+        
+        result =  f"Seat number = {seat.seat_number} status:\n"
+        
+        is_empty = True
+        for shift , student_id in seat.allotted_to.items():
+            result += f"\n Shift {shift}:"
+
+            if student_id is not None:
+                is_empty = False
+                st = self.students.get(student_id)
+                
+                if st :
+                    result += f"{st.name} | ID: {st.student_id} | Contact: {st.contact}"
+            else:
+                result += "empty"
+        if is_empty:
+            return "Seat is empty"
+        
+        return result 
+
+
     def check_student(self):
         if not self.students:
             print("Students list is empty")
@@ -159,6 +239,24 @@ class Management:
             print(f" Seat alloted : {st.seat_allotted}")
         else:
             print("Student not found")
+
+    
+    def check_student_web(self,student_id):
+        if not self.students:
+            return "Students list is empty"
+            
+        st = self.students.get(student_id)
+
+        result =  "\nStudent status:"
+        if st:
+            result += f"\nStudent name: {st.name}"
+            result += f"\nStudent id: {st.student_id}"
+            result += f"\nStudent contact: {st.contact}"
+            result += f"\nShift time: {st.shift}"
+            result += f"\nSeat allotted: {st.seat_allotted}"
+            return result
+        return "Student not found"
+
 
     def search_by_name(self):
         name = input("Enter the name of the student you want to search").strip()

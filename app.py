@@ -36,7 +36,37 @@ def add_student():
         return redirect (url_for("students"))   
     return render_template("add_student.html")
 
+@app.route("/allot-seat" , methods =["GET" , "POST"])
+def allot_seat():
+    if request.method == "POST":
+        student_id = int(request.form["student_id"])
+        message = man.allot_seat_web(student_id)
+        return message
+    return render_template("allot_seat.html")
 
+@app.route("/unallot-seat" , methods = ["GET"  , "POST" ])
+def unallot_seat():
+    if request.method == "POST":
+        student_id = int(request.form["student_id"])
+        message = man.unallot_seat_web(student_id)
+        return message
+    return render_template("unallot_seat.html")
+
+@app.route("/check-seat" , methods = ["GET" ,  "POST"])
+def check_seat():
+    if request.method == "POST":
+        seat_number = int(request.form["seat_number"])
+        message = man.check_seat_web(seat_number)
+        return message
+    return render_template("check_seat.h")
+
+@app.route("/check-student" , methods = ["GET" , "POST"])
+def check_student():
+    if request.method == "POST":
+        student_id = int(request.form["student_id"])
+        message = man.check_student_web(student_id)
+        return message
+    return render_template("check_student.html")
 
 @app.route("/about")
 def about():

@@ -18,7 +18,7 @@
         "student_id": 103,
         "contact": "9876543212",
         "shift": "9-7",
-        "seat_allotted": 2
+        "seat_allotted": null
     },
     {
         "name": "neha",
@@ -46,6 +46,6 @@
         "student_id": 7766,
         "contact": "7659565267",
         "shift": "2-7",
-        "seat_allotted": null
+        "seat_allotted": 1
     }
 ]
