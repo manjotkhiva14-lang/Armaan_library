@@ -1,10 +1,66 @@
 {% extends "base.html" %}
-
 {% block content %}
 <div class="container">
-<h1>Welcome to Armaan Library</h1>
-<p>Total Seats: {{ total_seats }}</p>
-<p>Total Students: {{ total_students }}</p>
-<p>Library Name: {{ library_name }}</p>
+    <h2 style="margin-bottom:10px; color:#9cdcfe;"><i class="fas fa-chair"></i> Welcome to Armaan Library</h2><br>
+    <p style="color:#888; margin-bottom:24px;">Seat Management Dashboard</p>
+
+    <div style="display:flex; gap:16px; flex-wrap:wrap; margin-bottom:20px;">
+        
+        <div style="flex:1; background:#2d2d2d; padding:24px; border-radius:8px; border-left:4px solid #0e639c;">
+            <p style="color:#888; font-size:13px; margin-bottom:6px;">TOTAL SEATS</p>
+            <h2 style="color:white; margin:0;">{{ total_seats }}</h2>
+        </div>
+
+        <div style="flex:1; background:#2d2d2d; padding:24px; border-radius:8px; border-left:4px solid #4caf50;">
+            <p style="color:#888; font-size:13px; margin-bottom:6px;">AVAILABLE</p>
+            <h2 style="color:white; margin:0;">{{ available_seats }}</h2>
+        </div>
+
+        <div style="flex:1; background:#2d2d2d; padding:24px; border-radius:8px; border-left:4px solid #e05252;">
+            <p style="color:#888; font-size:13px; margin-bottom:6px;">OCCUPIED</p>
+            <h2 style="color:white; margin:0;">{{ occupied_seats }}</h2>
+        </div>
+
+        <div style="flex:1; background:#2d2d2d; padding:24px; border-radius:8px; border-left:4px solid #9b59b6;">
+            <p style="color:#888; font-size:13px; margin-bottom:6px;">STUDENTS</p>
+            <h2 style="color:white; margin:0;">{{ total_students }}</h2>
+        </div>
+
+    </div>
+
+    <div style="background:#2d2d2d; padding:24px; border-radius:8px; margin-top:16px;">
+        <h4 style="color:#9cdcfe; margin-bottom:20px;"><i class="fas fa-clock"></i> Students Per Shift</h4>
+        
+        <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <span>Morning (9-2)</span>
+                <strong>{{ shift_counts['9-2'] }}</strong>
+            </div>
+            <div style="background:#3c3c3c; border-radius:4px; height:10px;">
+                <div style="background:#0e639c; height:10px; border-radius:4px; width:{{ (shift_counts['9-2'] / total_students * 100) if total_students > 0 else 0 }}%;"></div>
+            </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <span>Afternoon (2-7)</span>
+                <strong>{{ shift_counts['2-7'] }}</strong>
+            </div>
+            <div style="background:#3c3c3c; border-radius:4px; height:10px;">
+                <div style="background:#4caf50; height:10px; border-radius:4px; width:{{ (shift_counts['2-7'] / total_students * 100) if total_students > 0 else 0 }}%;"></div>
+            </div>
+        </div>
+
+        <div style="margin-bottom:16px;">
+            <div style="display:flex; justify-content:space-between; margin-bottom:6px;">
+                <span>Full Day (9-7)</span>
+                <strong>{{ shift_counts['9-7'] }}</strong>
+            </div>
+            <div style="background:#3c3c3c; border-radius:4px; height:10px;">
+                <div style="background:#9b59b6; height:10px; border-radius:4px; width:{{ (shift_counts['9-7'] / total_students * 100) if total_students > 0 else 0 }}%;"></div>
+            </div>
+        </div>
+    </div>
+
 </div>
 {% endblock %}

@@ -10,10 +10,23 @@ app = Flask(__name__)
 @app.route("/")
 def home():
     total_students = len(man.students)
-    total_seats = len(man.seats)
-    return render_template("home.html",library_name = "Armaan Library" , 
-                           total_students = total_students,
-                           total_seats = total_seats)
+    occupied_seats = sum(1 for s in man.students.values() if s.seat_allotted is not None)
+    available_seats = 110 - occupied_seats
+    
+    shift_counts = {"9-2": 0, "2-7": 0, "9-7": 0}
+    for s in man.students.values():
+        if s.shift in shift_counts:
+            shift_counts[s.shift] += 1
+
+    return render_template("home.html",
+        library_name="Armaan Library",
+        total_students=total_students,
+        total_seats=110,
+        occupied_seats=occupied_seats,
+        available_seats=available_seats,
+        shift_counts=shift_counts
+    )
+
 
 @app.route("/students")
 def students():
