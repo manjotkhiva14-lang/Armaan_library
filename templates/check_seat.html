@@ -1,8 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
+<div class="container">
 <h1> Check Seat</h1>
 <form method = "POST" action = "/check-seat">
 <input type = "number" name = "seat_number" placeholder="Seat number"><br>
 <button type = "submit" >Check seat</button>
 </form>
+</div>
 {% endblock %}
