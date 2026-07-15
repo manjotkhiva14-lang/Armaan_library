@@ -273,6 +273,24 @@ class Management:
         if not found:
             print("Student not found")
 
+    def search_by_name_web(self,name):
+        result = " Detail of the Student <br>"
+        found = False
+        for student in self.students.values():
+            if name == student.name.strip().lower():
+                found = True
+        
+                result += f"<br> Student name : {student.name}\n"
+                result += f"<br> Student id : {student.student_id}\n"
+                result += f"<br> Student contact : {student.contact}\n"
+                result += f"<br> Shift time : {student.shift}\n"
+                result += f"<br> Seat alloted : {student.seat_allotted}<br>"
+        if not found:
+            return "Student not found"
+        
+        return result
+
+
                 
     def save_students(self):
         data = []

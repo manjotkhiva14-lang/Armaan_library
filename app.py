@@ -68,6 +68,15 @@ def check_student():
         return message
     return render_template("check_student.html")
 
+@app.route("/search-student" , methods = ["GET" , "POST"])
+def search_by_name_web():
+    if request.method == "POST":
+        name = str(request.form["name"].strip().lower())
+        message = man.search_by_name_web(name)
+        return message
+    return render_template("search_student.html")
+
+
 @app.route("/about")
 def about():
     return "<h1>Armaan Library</h1><p>A seat management system</p>"
