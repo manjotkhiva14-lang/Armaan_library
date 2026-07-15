@@ -47,5 +47,12 @@
         "contact": "7659565267",
         "shift": "2-7",
         "seat_allotted": 1
+    },
+    {
+        "name": "lovepreet",
+        "student_id": 9966,
+        "contact": "7659950664",
+        "shift": "9-2",
+        "seat_allotted": null
     }
 ]

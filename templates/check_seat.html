@@ -1,15 +1,8 @@
-<!DOCTYPE html>
-
-<html>
-<head>
-    <title> Check Seat</title>
-</head>
-<body>
-    <h1> Check Seat</h1>
-    <form method = "POST" action = "/check-seat">
-    <input type = "number" name = "seat_number" placeholder="Seat number"><br>
-    <button type = "submit" >Check seat</button>
-    </form>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1> Check Seat</h1>
+<form method = "POST" action = "/check-seat">
+<input type = "number" name = "seat_number" placeholder="Seat number"><br>
+<button type = "submit" >Check seat</button>
+</form>
+{% endblock %}

@@ -1,23 +1,18 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Add Student</title>
-</head>
-<body>
-    <h1>Add Student</h1>
-    {% if error %}
-        <p style="color : red;">{{error}}</p>
-    {% endif %}
-    <form method="POST" action="/add-student">
-        <input type="text" name="name" placeholder="Student Name"><br>
-        <input type="number" name="student_id" placeholder="Student ID"><br>
-        <input type="text" name="contact" placeholder="Contact"><br>
-        <select name="shift">
-            <option value="9-2">9-2</option>
-            <option value="2-7">2-7</option>
-            <option value="9-7">9-7</option>
-        </select><br>
-        <button type="submit">Add Student</button>
+{% extends "base.html" %}
+{% block content %}
+<h1>Add Student</h1>
+{% if error %}
+    <p style="color : red;">{{error}}</p>
+{% endif %}
+<form method="POST" action="/add-student">
+    <input type="text" name="name" placeholder="Student Name"><br>
+    <input type="number" name="student_id" placeholder="Student ID"><br>
+    <input type="text" name="contact" placeholder="Contact"><br>
+    <select name="shift">
+        <option value="9-2">9-2</option>
+        <option value="2-7">2-7</option>
+        <option value="9-7">9-7</option>
+    </select><br>
+    <button type="submit">Add Student</button>
     </form>
-</body>
-</html>
+{% endblock %}

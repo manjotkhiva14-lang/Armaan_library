@@ -1,14 +1,8 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-    <title>Allot Seat</title>
-</head>
-<body>
-    <h1> Allot Seat</h1>
-    <form method = "POST" action = "/allot-seat">
+{% extends "base.html" %}
+{% block content %}
+<h1>Allot Seat</h1>
+<form method="POST" action="/allot-seat">
     <input type="number" name="student_id" placeholder="Student ID"><br>
     <button type="submit">Allot Seat</button>
-    </form>       
-</body>
-</html>
+</form>
+{% endblock %}

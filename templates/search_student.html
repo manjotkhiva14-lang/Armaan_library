@@ -1,16 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title> Search Student
-    </title>
-</head>
-
-<body>
-    <h1>Search Student </h1>
-    <form method = "POST"  action = "/search-student">
-    <input type = "text" name = "name" placeholder=" Enter the Student name"><br>
-    <button type = "submit"> Search</button>
-    </form>
-
-</body>
-</html>
+{% extends "base.html" %}
+{% block content %}
+<h1>Search Student </h1>
+<form method = "POST"  action = "/search-student">
+<input type = "text" name = "name" placeholder=" Enter the Student name"><br>
+<button type = "submit"> Search</button>
+</form>
+{% endblock %}

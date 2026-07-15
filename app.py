@@ -58,7 +58,7 @@ def check_seat():
         seat_number = int(request.form["seat_number"])
         message = man.check_seat_web(seat_number)
         return message
-    return render_template("check_seat.h")
+    return render_template("check_seat.html")
 
 @app.route("/check-student" , methods = ["GET" , "POST"])
 def check_student():
