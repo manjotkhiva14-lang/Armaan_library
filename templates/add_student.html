@@ -29,7 +29,27 @@
     margin-bottom: 20px;
   }
   .form-card button{ width: 100%; margin-top: 6px; }
+
+  .result-box{
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .result-box.fade-out{
+    opacity: 0;
+    transform: translateY(-6px);
+  }
 </style>
+
+<script>
+  window.addEventListener('DOMContentLoaded', () => {
+    const box = document.querySelector('.result-box');
+    if (box) {
+      setTimeout(() => {
+        box.classList.add('fade-out');
+        setTimeout(() => box.remove(), 600);
+      }, 3000);
+    }
+  });
+</script>
 
 <div class="form-page">
   <div class="eyebrow">Reading room · New record</div>
@@ -57,6 +77,10 @@
         <option value="2-7">Afternoon · 2 PM – 7 PM</option>
         <option value="9-7">Full day · 9 AM – 7 PM</option>
       </select>
+
+      {% if message %}
+        <div class="result-box">{{ message }}</div>
+      {% endif %}
 
       <button type="submit">Add student</button>
     </form>

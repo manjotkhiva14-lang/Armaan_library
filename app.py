@@ -33,20 +33,25 @@ def students():
     student_list = list(man.students.values())
     return render_template("students.html" , students = student_list)
 
-@app.route("/add-student" , methods=["GET" , "POST"])
+@app.route("/add-student", methods=["GET", "POST"])
 def add_student():
     if request.method == "POST":
-        name = request.form ["name"]
+        name = request.form["name"]
         try:
             student_id = int(request.form["student_id"])
         except ValueError:
-            return render_template("add_student.html" , error = "please enter the valid student id")
+            return render_template("add_student.html", error="Please enter a valid student ID")
+
+        if student_id in man.students:
+            return render_template("add_student.html", error="This ID is already taken")
+
         contact = request.form["contact"]
-        shift = request.form["shift"]
-        student = Student(name,student_id,contact,shift)
-        man.students[student_id] = student 
+        shift = request.form["shift"] 
+        student = Student(name, student_id, contact, shift)
+        man.students[student_id] = student
         man.save_students()
-        return redirect (url_for("students"))   
+
+        return render_template("add_student.html", message=f"{name} added successfully")
     return render_template("add_student.html")
 
 @app.route("/allot-seat" , methods =["GET" , "POST"])
@@ -54,7 +59,7 @@ def allot_seat():
     if request.method == "POST":
         student_id = int(request.form["student_id"])
         message = man.allot_seat_web(student_id)
-        return message
+        return render_template("allot_seat.html" , message = message)
     return render_template("allot_seat.html")
 
 @app.route("/unallot-seat" , methods = ["GET"  , "POST" ])
@@ -62,23 +67,23 @@ def unallot_seat():
     if request.method == "POST":
         student_id = int(request.form["student_id"])
         message = man.unallot_seat_web(student_id)
-        return message
+        return render_template("unallot_seat.html" , message= message)
     return render_template("unallot_seat.html")
 
-@app.route("/check-seat" , methods = ["GET" ,  "POST"])
+@app.route("/check-seat", methods=["GET", "POST"])
 def check_seat():
     if request.method == "POST":
         seat_number = int(request.form["seat_number"])
         message = man.check_seat_web(seat_number)
-        return message
+        return render_template("seat_result.html", message=message, seat_number=seat_number)
     return render_template("check_seat.html")
 
-@app.route("/check-student" , methods = ["GET" , "POST"])
+@app.route("/check-student", methods=["GET", "POST"])
 def check_student():
     if request.method == "POST":
         student_id = int(request.form["student_id"])
         message = man.check_student_web(student_id)
-        return message
+        return render_template("student_result.html", message=message)
     return render_template("check_student.html")
 
 @app.route("/search-student" , methods = ["GET" , "POST"])
@@ -92,7 +97,7 @@ def search_by_name_web():
 
 @app.route("/about")
 def about():
-    return "<h1>Armaan Library</h1><p>A seat management system</p>"
+    return render_template("about.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
