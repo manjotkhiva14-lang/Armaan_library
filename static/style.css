@@ -1,81 +1,257 @@
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
+
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-body {
-    font-family: 'Segoe UI', sans-serif;
-    background-color: #1e1e1e;
-    color: #d4d4d4;
+:root {
+    --ink: #1B2621;
+    --ink-soft: rgba(27,38,33,0.68);
+    --ink-faint: rgba(27,38,33,0.55);
+    --paper: #F3EEE1;
+    --paper-deep: #E8E0CC;
+    --panel: #FFFFFF;
+    --lamp-green: #26463C;
+    --lamp-green-deep: #16332B;
+    --brass: #B08D3E;
+    --brass-bright: #C9A227;
+    --rust: #B5533C;
+    --line: rgba(27,38,33,0.14);
 }
 
+body {
+    font-family: 'Inter', sans-serif;
+    background-color: var(--paper);
+    color: var(--ink);
+}
+
+h1, h2, h3, h4 {
+    font-family: 'Fraunces', serif;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.01em;
+}
+
+/* NAV */
 nav {
-    background-color: #252526;
-    padding: 15px 30px;
+    background-color: var(--panel);
+    padding: 0 30px;
     display: flex;
-    gap: 20px;
+    gap: 4px;
     align-items: center;
-    border-bottom: 1px solid #3c3c3c;
+    border-bottom: 1px solid var(--line);
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 20px 16px 0;
+    margin-right: 12px;
+    border-right: 1px solid var(--line);
+}
+
+.brand-mark {
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background: var(--lamp-green);
+    position: relative;
+    flex-shrink: 0;
+}
+
+.brand-mark::after {
+    content: '';
+    position: absolute;
+    inset: 6px;
+    border-radius: 50%;
+    background: var(--brass-bright);
+}
+
+.brand-name {
+    font-family: 'Fraunces', serif;
+    font-size: 16px;
+    font-weight: 600;
+    color: var(--ink);
 }
 
 nav a {
-    color: #9cdcfe;
+    color: var(--ink-faint);
     text-decoration: none;
-    font-size: 14px;
+    font-size: 13.5px;
     font-weight: 500;
-    padding: 6px 12px;
-    border-radius: 4px;
-    transition: background 0.2s;
+    padding: 16px 14px;
+    border-bottom: 2px solid transparent;
+    transition: color 0.15s, border-color 0.15s;
 }
 
 nav a:hover {
-    background-color: #2a2d2e;
-    color: #ffffff;
+    color: var(--ink);
 }
 
+nav a.active {
+    color: var(--brass);
+    border-bottom: 2px solid var(--brass-bright);
+}
+
+/* LAYOUT */
 .container {
-    max-width: 95%;
-    margin: 20px auto;
-    background: #252526;
-    padding: 30px;
-    border-radius: 8px;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.4);
+    max-width: 1100px;
+    margin: 32px auto;
+    padding: 0 24px;
 }
 
-h1, h2 {
-    color: #9cdcfe;
-    margin-bottom: 20px;
+.page-eyebrow {
+    color: var(--ink-faint);
+    font-size: 14px;
+    margin-bottom: 28px;
+}
+
+/* STAT CARDS */
+.stat-grid {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 24px;
+}
+
+.stat-card {
+    flex: 1;
+    min-width: 180px;
+    background: var(--panel);
+    padding: 22px 24px;
+    border-radius: 6px;
+    border-left: 3px solid var(--line);
+    box-shadow: 0 2px 10px rgba(27,38,33,0.05);
+}
+
+.stat-card.accent-brass { border-left-color: var(--brass-bright); }
+.stat-card.accent-green { border-left-color: var(--lamp-green); }
+.stat-card.accent-rust  { border-left-color: var(--rust); }
+
+.stat-label {
+    color: var(--ink-faint);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+
+.stat-value {
+    font-family: 'Fraunces', serif;
+    font-size: 30px;
+    font-weight: 600;
+    color: var(--ink);
+}
+
+/* PANEL / SHIFT BREAKDOWN */
+.panel {
+    background: var(--panel);
+    padding: 26px 28px;
+    border-radius: 6px;
+    border: 1px solid var(--line);
+    box-shadow: 0 2px 10px rgba(27,38,33,0.05);
+}
+
+.panel h4 {
+    font-size: 17px;
+    margin-bottom: 22px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.panel h4 i { color: var(--brass); font-size: 15px; }
+
+.shift-row { margin-bottom: 18px; }
+.shift-row:last-child { margin-bottom: 0; }
+
+.shift-row-head {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.shift-row-head span { color: var(--ink-faint); }
+.shift-row-head strong { color: var(--ink); font-weight: 600; }
+
+.shift-bar-track {
+    background: var(--paper-deep);
+    border-radius: 4px;
+    height: 8px;
+    overflow: hidden;
+}
+
+.shift-bar-fill {
+    height: 8px;
+    border-radius: 4px;
+}
+
+.shift-bar-fill.morning { background: var(--brass-bright); }
+.shift-bar-fill.afternoon { background: var(--lamp-green); }
+.shift-bar-fill.fullday { background: var(--rust); }
+
+/* FORMS */
+label {
+    display: block;
+    font-size: 13.5px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    margin-bottom: 6px;
 }
 
 input, select {
     width: 100%;
-    padding: 10px;
-    margin: 8px 0 16px 0;
-    background-color: #3c3c3c;
-    border: 1px solid #555;
+    padding: 10px 12px;
+    margin: 0 0 16px 0;
+    background-color: var(--panel);
+    border: 1px solid var(--line);
     border-radius: 5px;
-    color: #d4d4d4;
+    color: var(--ink);
     font-size: 14px;
+    font-family: 'Inter', sans-serif;
+}
+
+input:focus, select:focus {
+    outline: none;
+    border-color: var(--brass-bright);
 }
 
 button {
-    background-color: #0e639c;
-    color: white;
-    padding: 10px 24px;
+    background-color: var(--lamp-green);
+    color: var(--paper);
+    padding: 11px 26px;
     border: none;
     border-radius: 5px;
     font-size: 14px;
+    font-weight: 600;
     cursor: pointer;
+    font-family: 'Inter', sans-serif;
 }
 
 button:hover {
-    background-color: #1177bb;
+    background-color: var(--lamp-green-deep);
 }
 
 p {
     font-size: 15px;
     margin-bottom: 10px;
     line-height: 1.6;
-    color: #d4d4d4;
+    color: var(--ink-soft);
+}
+
+/* RESULT / MESSAGE BOXES (for the plain-text routes like allot/unallot/check) */
+.result-box {
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--brass-bright);
+    padding: 20px 24px;
+    border-radius: 6px;
+    margin-top: 20px;
+    font-size: 15px;
+    color: var(--ink);
 }

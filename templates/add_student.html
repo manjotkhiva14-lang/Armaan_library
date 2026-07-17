@@ -1,20 +1,65 @@
 {% extends "base.html" %}
 {% block content %}
-<div class="container">
-<h1>Add Student</h1>
-{% if error %}
-    <p style="color : red;">{{error}}</p>
-{% endif %}
-<form method="POST" action="/add-student">
-    <input type="text" name="name" placeholder="Student Name"><br>
-    <input type="number" name="student_id" placeholder="Student ID"><br>
-    <input type="text" name="contact" placeholder="Contact"><br>
-    <select name="shift">
-        <option value="9-2">9-2</option>
-        <option value="2-7">2-7</option>
-        <option value="9-7">9-7</option>
-    </select><br>
-    <button type="submit">Add Student</button>
+<style>
+  .form-page{ max-width: 640px; margin: 0 auto; padding: 48px 24px 60px; }
+  .form-page .eyebrow{
+    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
+    color: var(--lamp-green-deep); opacity: 0.75;
+    display:flex; align-items:center; gap:8px;
+    margin-bottom: 14px;
+  }
+  .form-page .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--brass-bright); display:inline-block; }
+  .form-page h1{ font-size: 30px; margin-bottom: 8px; }
+  .form-page .form-sub{ color: var(--ink-faint); font-size: 14.5px; margin-bottom: 30px; }
+
+  .form-card{
+    background: var(--panel);
+    border: 1px solid var(--line);
+    border-radius: 8px;
+    padding: 32px;
+    box-shadow: 0 2px 10px rgba(27,38,33,0.05);
+  }
+  .form-error{
+    background: rgba(181,83,60,0.1);
+    border-left: 3px solid var(--rust);
+    color: var(--rust);
+    padding: 12px 16px;
+    border-radius: 4px;
+    font-size: 14px;
+    margin-bottom: 20px;
+  }
+  .form-card button{ width: 100%; margin-top: 6px; }
+</style>
+
+<div class="form-page">
+  <div class="eyebrow">Reading room · New record</div>
+  <h1>Add a student</h1>
+  <p class="form-sub">Add their details once — you'll be able to allot, check, or search for them right after.</p>
+
+  {% if error %}
+    <div class="form-error">{{ error }}</div>
+  {% endif %}
+
+  <div class="form-card">
+    <form method="POST" action="/add-student">
+      <label for="name">Student name</label>
+      <input type="text" id="name" name="name" placeholder="e.g. Rahul Sharma" required>
+
+      <label for="student_id">Student ID</label>
+      <input type="number" id="student_id" name="student_id" placeholder="e.g. 101" required>
+
+      <label for="contact">Contact number</label>
+      <input type="text" id="contact" name="contact" placeholder="e.g. 9876543210" required>
+
+      <label for="shift">Preferred shift</label>
+      <select id="shift" name="shift">
+        <option value="9-2">Morning · 9 AM – 2 PM</option>
+        <option value="2-7">Afternoon · 2 PM – 7 PM</option>
+        <option value="9-7">Full day · 9 AM – 7 PM</option>
+      </select>
+
+      <button type="submit">Add student</button>
     </form>
+  </div>
 </div>
 {% endblock %}

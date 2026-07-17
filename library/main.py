@@ -1,4 +1,4 @@
-from management import Management
+from library.management import Management
 man = Management()
 man.load_students()
 man.load_seats()

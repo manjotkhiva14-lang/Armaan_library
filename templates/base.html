@@ -2,22 +2,23 @@
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Armaan Library</title>
-
 </head>
 <body>
     <nav>
-        <a href="/">Home</a> |
-        <a href="/add-student">Add Student</a> |
-        <a href="/allot-seat">Allot Seat</a> |
-        <a href="/unallot-seat">Unallot Seat</a> |
-        <a href="/check-seat">Check Seat</a> |
-        <a href="/check-student">Check Student</a> |
-        <a href="/search-student">Search Student</a>
+        <div class="brand">
+            <div class="brand-mark"></div>
+            <div class="brand-name">Armaan Library</div>
+        </div>
+        <a href="/" class="{{ 'active' if request.path == '/' }}">Home</a>
+        <a href="/add-student" class="{{ 'active' if request.path == '/add-student' }}">Add Student</a>
+        <a href="/allot-seat" class="{{ 'active' if request.path == '/allot-seat' }}">Allot Seat</a>
+        <a href="/unallot-seat" class="{{ 'active' if request.path == '/unallot-seat' }}">Unallot Seat</a>
+        <a href="/check-seat" class="{{ 'active' if request.path == '/check-seat' }}">Check Seat</a>
+        <a href="/check-student" class="{{ 'active' if request.path == '/check-student' }}">Check Student</a>
+        <a href="/search-student" class="{{ 'active' if request.path == '/search-student' }}">Search Student</a>
     </nav>
-    <hr>
     {% block content %}
     {% endblock %}
 </body>

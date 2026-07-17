@@ -1,6 +1,6 @@
 from flask import Flask , render_template , request , redirect , url_for
-from management import Management
-from students import Student
+from library.management import Management
+from library.students import Student
 man = Management()
 man.load_students()
 man.load_seats()

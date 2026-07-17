@@ -1,4 +1,4 @@
-from analysis import Dashboard
+from analysis.analysis import Dashboard
 dash = Dashboard()
 dash.load_data()
 dash.generate_summary()

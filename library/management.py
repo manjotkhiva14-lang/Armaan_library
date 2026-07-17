@@ -1,5 +1,5 @@
-from students import Student
-from seats import Seat
+from library.students import Student
+from library.seats import Seat
 import json
 import pandas as pd
 class Management:
