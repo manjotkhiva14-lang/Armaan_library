@@ -1,61 +1,295 @@
 {% extends "base.html" %}
 {% block content %}
 <style>
-  .about-page{ max-width: 720px; margin: 0 auto; padding: 48px 24px 60px; }
-  .about-page .eyebrow{
-    font-size: 13px; font-weight: 600; letter-spacing: 0.08em; text-transform: uppercase;
-    color: var(--lamp-green-deep); opacity: 0.75;
-    display:flex; align-items:center; gap:8px;
-    margin-bottom: 14px;
-  }
-  .about-page .eyebrow::before{ content:''; width:7px; height:7px; border-radius:50%; background: var(--brass-bright); display:inline-block; }
-  .about-page h1{ font-size: 32px; margin-bottom: 16px; }
-  .about-page p{ font-size: 15.5px; line-height: 1.7; color: var(--ink-soft); margin-bottom: 16px; }
+  @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
 
-  .about-card{
-    background: var(--panel);
-    border: 1px solid var(--line);
-    border-radius: 8px;
-    padding: 28px 32px;
-    box-shadow: 0 2px 10px rgba(27,38,33,0.05);
-    margin-top: 28px;
+  .home-scope {
+    /* Unified Modern Tech Slate Design Tokens */
+    --indigo-primary: #1E3A8A;
+    --indigo-deep: #0F1E4A;
+    --page-bg: #F1F5F9;
+    --ink-dark: #0F172A;
+    --ink-soft: #475569;
+    --ink-faint: #94A3B8;
+    --card-bg: #FFFFFF;
+    --error-red: #EF4444;
+    --success-green: #10B981;
+
+    background: var(--page-bg);
+    margin: 0 -24px;
+    padding: 0;
+    color: var(--ink-dark);
+    font-family: 'Inter', sans-serif;
+    min-height: calc(100vh - 60px);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
   }
-  .about-card h4{ font-size: 15px; margin-bottom: 14px; color: var(--ink); }
-  .about-list{ list-style: none; padding: 0; margin: 0; }
-  .about-list li{
+
+  .home-wrap { 
+    max-width: 1160px; 
+    margin: 0 auto; 
+    padding: 0 24px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Modified Grid: Stretch alignment to ensure equal column heights */
+  .form-page-grid { 
+    display: grid;
+    grid-template-columns: 1.1fr 0.9fr;
+    gap: 48px;
+    margin: 40px auto 60px; 
+    align-items: stretch;
+  }
+  @media (max-width: 880px) { 
+    .form-page-grid { grid-template-columns: 1fr; gap: 32px; margin: 24px auto; } 
+  }
+  
+  .home-scope h1 {
+    font-family: 'Fraunces', serif;
+    margin: 0 0 12px;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    color: var(--ink-dark);
+    font-size: 36px;
+  }
+
+  .eyebrow {
+    font-size: 12px; 
+    font-weight: 700; 
+    letter-spacing: 0.06em; 
+    text-transform: uppercase;
+    color: var(--ink-soft); 
+    display: flex; 
+    align-items: center; 
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .eyebrow::before { 
+    content: ''; 
+    width: 6px; 
+    height: 6px; 
+    border-radius: 50%; 
+    background: var(--indigo-primary); 
+    display: inline-block; 
+  }
+
+  .form-sub { 
+    color: var(--ink-soft); 
+    font-size: 15px; 
+    line-height: 1.6;
+    margin-bottom: 28px; 
+  }
+
+  /* Structural Metric Cards with targeted flex behaviors for bottom alignment */
+  .left-column-layout {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+  }
+
+  .about-card {
+    background: var(--card-bg);
+    border-radius: 12px;
+    padding: 28px 32px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    margin-bottom: 24px;
+  }
+
+  /* Forces the facilities card to dynamically grow and absorb space up to the shared grid baseline */
+  .facilities-card {
+    margin-bottom: 0;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+  }
+  .facilities-card .about-list {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .facilities-card .about-list li {
+    flex-grow: 1;
+    align-items: center;
+  }
+
+  .about-card h4 { 
+    font-size: 15px; 
+    margin: 0 0 14px; 
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.04em;
+    color: var(--indigo-primary); 
+  }
+  
+  .about-list { list-style: none; padding: 0; margin: 0; }
+  .about-list li {
     display: flex;
     justify-content: space-between;
-    padding: 10px 0;
-    border-top: 1px solid var(--line);
+    padding: 12px 0;
+    border-top: 1px solid #E2E8F0;
     font-size: 14.5px;
     color: var(--ink-soft);
   }
-  .about-list li:first-child{ border-top: none; }
-  .about-list strong{ color: var(--ink); font-weight: 600; }
+  .about-list li:first-child { border-top: none; }
+  .about-list strong { color: var(--ink-dark); font-weight: 600; }
+
+  /* Right Side Context Card Panel fills container space perfectly */
+  .context-card {
+    background: var(--indigo-primary);
+    border-radius: 12px;
+    padding: 36px;
+    color: #FFFFFF;
+    box-shadow: 0 20px 40px -15px rgba(30, 58, 138, 0.2);
+    height: 100%;
+    box-sizing: border-box;
+  }
+  .context-card h3 {
+    font-family: 'Fraunces', serif;
+    color: #FFFFFF;
+    font-size: 24px;
+    margin-bottom: 16px;
+  }
+  .context-card p {
+    font-size: 14.5px;
+    line-height: 1.7;
+    color: rgba(255, 255, 255, 0.85);
+    margin: 0 0 24px;
+  }
+
+  .context-section {
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+    padding-top: 20px;
+    margin-top: 20px;
+  }
+  .context-section h4 {
+    color: #FEF08A; 
+    font-size: 13px; 
+    text-transform: uppercase; 
+    letter-spacing: 0.06em; 
+    margin: 0 0 12px 0;
+  }
+
+  .vision-bullets {
+    margin: 0;
+    padding-left: 18px;
+    color: rgba(255, 255, 255, 0.85);
+  }
+  .vision-bullets li {
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 10px;
+  }
+  .vision-bullets strong {
+    color: #FFFFFF;
+  }
+
+  /* Full-Bleed Page Footer */
+  .home-footer {
+    background: var(--indigo-deep);
+    color: rgba(255, 255, 255, 0.8);
+    padding: 48px 0;
+    margin-top: 60px;
+  }
+  .footer-grid { display: grid; grid-template-columns: 1.2fr 0.8fr 1fr; gap: 48px; }
+  @media (max-width: 700px) { .footer-grid { grid-template-columns: 1fr; gap: 32px; } }
+  
+  .footer-col h4 {
+    font-size: 12px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5); margin-bottom: 16px;
+  }
+  .footer-col p { font-size: 14px; line-height: 1.7; margin: 0; }
+  .footer-col a { font-size: 14px; line-height: 2; color: rgba(255, 255, 255, 0.8); text-decoration: none; display: block; }
+  .footer-col a:hover { color: #FFFFFF; text-decoration: underline; }
 </style>
 
-<div class="about-page">
-  <div class="eyebrow">Reading room · About</div>
-  <h1>Armaan Library</h1>
+<div class="home-scope">
+  <div class="home-wrap">
+    
+    <div class="form-page-grid">
+      
+      <!-- Left Column wrapped to synchronize baseline execution heights -->
+      <div class="left-column-layout">
+        <div class="eyebrow">Reading room · About</div>
+        <h1>Armaan Library</h1>
+        <p class="form-sub">
+          Armaan Library provides a premier, high-concentration study environment tailored for serious academic pursuits, competitive exam preparation, and research work. 
+        </p>
 
-  <div class="about-card">
-    <h4>At a glance</h4>
-    <ul class="about-list">
-      <li><span>Seats, second floor</span><strong>110</strong></li>
-      <li><span>Shifts per day</span><strong>3</strong></li>
-      <li><span>Open hours</span><strong>9 AM – 7 PM</strong></li>
-      <li><span>Location</span><strong>Faridkot, Punjab</strong></li>
-    </ul>
-  </div>
+        <div class="about-card">
+          <h4>At a glance</h4>
+          <ul class="about-list">
+            <li><span>Total workspace seats</span><strong>110 desks</strong></li>
+            <li><span>Daily operational shifts</span><strong>3 structured shifts</strong></li>
+            <li><span>Standard open hours</span><strong>9 AM – 7 PM</strong></li>
+            <li><span>Primary location</span><strong>Faridkot, Punjab</strong></li>
+          </ul>
+        </div>
 
-  <div class="about-card">
-    <h4>Facilities</h4>
-    <ul class="about-list">
-      <li><span>Wi-Fi</span><strong>Free</strong></li>
-      <li><span>Air conditioning</span><strong>Fully AC</strong></li>
-      <li><span>Food &amp; cafe</span><strong>On-site</strong></li>
-      <li><span>Power backup</span><strong>Available</strong></li>
-    </ul>
+        <div class="about-card facilities-card">
+          <h4>Premium Facilities</h4>
+          <ul class="about-list">
+            <li><span>High-speed connectivity</span><strong>Free enterprise Wi-Fi</strong></li>
+            <li><span>Climate regulation</span><strong>Fully air-conditioned halls</strong></li>
+            <li><span>Food &amp; refreshments</span><strong>On-site pantry station</strong></li>
+            <li><span>Power infrastructure</span><strong>100% generator backup</strong></li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Right Column: Perfectly Tracked Baseline Height Grid Pair -->
+      <div style="margin-top: 32px; height: calc(100% - 32px);">
+        <div class="context-card">
+          <h3>Our Strategic Vision</h3>
+          <p>We believe quiet, organized spaces foster deep thought. By leveraging software-driven allocation frameworks, we eliminate common resource friction points to ensure uninterrupted intellectual output.</p>
+          
+          <div class="context-section">
+            <h4>Core Operational Values</h4>
+            <ul class="vision-bullets">
+              <li><strong>Zero-Friction Seating:</strong> Automated check-ins stop double-booking issues before they disrupt someone's concentration.</li>
+              <li><strong>Optimized Ambient Comfort:</strong> Maintained zoning rules safeguard acoustic levels and spatial integrity across study halls.</li>
+              <li><strong>Structured Accountability:</strong> Precise logging helps manage shift transitions cleanly without cutting into active study intervals.</li>
+            </ul>
+          </div>
+
+          <div class="context-section">
+            <h4>Shift Framework Matrix</h4>
+            <ul class="vision-bullets" style="list-style-type: square;">
+              <li><strong>Morning Rotation:</strong> 09:00 AM – 01:00 PM</li>
+              <li><strong>Midday Rotation:</strong> 01:00 PM – 05:00 PM</li>
+              <li><strong>Extended Late Window:</strong> 05:00 PM – 07:00 PM</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- Closes .form-page-grid -->
+  </div> <!-- Closes .home-wrap -->
+
+  <!-- Full-Width Page Footer -->
+  <div class="home-footer" style="margin-left: 0; margin-right: 0; width: 100%;">
+    <div class="home-wrap">
+      <div class="footer-grid">
+        <div class="footer-col">
+          <h4>About Armaan Library</h4>
+          <p>Armaan Library is a modern reading room in Faridkot, Punjab, designed to optimize study space management through clean scheduling and reliable seat tracking.</p>
+        </div>
+        <div class="footer-col">
+          <h4>Quick links</h4>
+          <a href="/">Home</a>
+          <a href="/add-student">Add Student</a>
+          <a href="/manage-seat">Manage Seat</a>
+          <a href="/check">Check</a>
+        </div>
+        <div class="footer-col">
+          <h4>Contact</h4>
+          <p style="margin-bottom: 8px;">📍 Address: 123 Library Lane, Faridkot, Punjab</p>
+          <p>📞 Phone: +91-5332-7560</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 {% endblock %}

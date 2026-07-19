@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html>
 <head>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -13,10 +13,8 @@
         </div>
         <a href="/" class="{{ 'active' if request.path == '/' }}">Home</a>
         <a href="/add-student" class="{{ 'active' if request.path == '/add-student' }}">Add Student</a>
-        <a href="/allot-seat" class="{{ 'active' if request.path == '/allot-seat' }}">Allot Seat</a>
-        <a href="/unallot-seat" class="{{ 'active' if request.path == '/unallot-seat' }}">Unallot Seat</a>
-        <a href="/check-seat" class="{{ 'active' if request.path == '/check-seat' }}">Check Seat</a>
-        <a href="/check-student" class="{{ 'active' if request.path == '/check-student' }}">Check Student</a>
+        <a href="/manage-seat" class="{{ 'active' if request.path == '/manage-seat' }}">Manage Seat</a>
+        <a href="/check" class="{{ 'active' if request.path == '/check' }}">Check</a>
         <a href="/about" class="{{ 'active' if request.path == '/about' }}">About</a>
     </nav>
     {% block content %}

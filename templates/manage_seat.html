@@ -4,6 +4,7 @@
   @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,500;9..144,600&family=Inter:wght@400;500;600;700&display=swap');
 
   .home-scope {
+    /* Unified Modern Tech Slate Design Tokens */
     --indigo-primary: #1E3A8A;
     --indigo-deep: #0F1E4A;
     --page-bg: #F1F5F9;
@@ -33,7 +34,7 @@
     box-sizing: border-box;
   }
 
-  /* Two-Column Form Split Grid layout fixes empty sides */
+  /* Two-Column Grid Setup to balance empty space cleanly */
   .form-page-grid { 
     display: grid;
     grid-template-columns: 1.1fr 0.9fr;
@@ -81,15 +82,45 @@
     margin-bottom: 28px; 
   }
 
-  /* Left Side Form Card */
+  /* Premium Tab Controls */
+  .tab-switch {
+    display: flex;
+    background: #E2E8F0;
+    border-radius: 8px;
+    padding: 4px;
+    margin-bottom: 20px;
+  }
+  .tab-btn {
+    flex: 1;
+    text-align: center;
+    padding: 12px 0;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    background: none;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s ease;
+  }
+  .tab-btn.active {
+    background: var(--card-bg);
+    color: var(--indigo-primary);
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+  }
+
+  /* Structural Content Panels */
   .form-card {
     background: var(--card-bg);
     border-radius: 12px;
     padding: 36px;
     box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
   }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
 
-  /* Right Side Context Card */
+  /* Right Side Slate Sidebar Card */
   .context-card {
     background: var(--indigo-primary);
     border-radius: 12px;
@@ -119,7 +150,7 @@
     color: #FFFFFF;
   }
 
-  /* Form Elements */
+  /* Typography & Input Controls */
   .form-card label {
     display: block;
     font-size: 13px;
@@ -127,13 +158,9 @@
     text-transform: uppercase;
     letter-spacing: 0.04em;
     color: var(--ink-soft);
-    margin-bottom: 6px;
-    margin-top: 18px;
+    margin-bottom: 8px;
   }
-  .form-card label:first-of-type { margin-top: 0; }
-
-  .form-card input, 
-  .form-card select {
+  .form-card input {
     width: 100%;
     padding: 12px 14px;
     border: 1px solid #CBD5E1;
@@ -144,17 +171,17 @@
     background-color: #FFFFFF;
     box-sizing: border-box;
     transition: border-color 0.2s, box-shadow 0.2s;
+    margin-bottom: 4px;
   }
-  .form-card input:focus, 
-  .form-card select:focus {
+  .form-card input:focus {
     outline: none;
     border-color: var(--indigo-primary);
     box-shadow: 0 0 0 3px rgba(30, 58, 138, 0.15);
   }
 
-  .form-card button { 
+  .form-card button[type="submit"] { 
     width: 100%; 
-    margin-top: 24px; 
+    margin-top: 20px; 
     background: var(--indigo-primary);
     color: #FFFFFF;
     border: none;
@@ -166,19 +193,9 @@
     cursor: pointer;
     transition: background 0.2s;
   }
-  .form-card button:hover { background: var(--indigo-deep); }
+  .form-card button[type="submit"]:hover { background: var(--indigo-deep); }
 
-  .form-error {
-    background: rgba(239, 68, 68, 0.08);
-    border-left: 4px solid var(--error-red);
-    color: #B91C1C;
-    padding: 14px 16px;
-    border-radius: 6px;
-    font-size: 14px;
-    font-weight: 500;
-    margin-bottom: 20px;
-  }
-
+  /* Validation Feedback Containers */
   .result-box {
     background: rgba(16, 185, 129, 0.08);
     border-left: 4px solid var(--success-green);
@@ -192,7 +209,7 @@
   }
   .result-box.fade-out { opacity: 0; transform: translateY(-6px); }
 
-  /* Footer */
+  /* Full-Bleed Page Footer */
   .home-footer {
     background: var(--indigo-deep);
     color: rgba(255, 255, 255, 0.8);
@@ -211,86 +228,79 @@
   .footer-col a:hover { color: #FFFFFF; text-decoration: underline; }
 </style>
 
-<script>
-  window.addEventListener('DOMContentLoaded', () => {
-    const box = document.querySelector('.result-box');
-    if (box) {
-      setTimeout(() => {
-        box.classList.add('fade-out');
-        setTimeout(() => box.remove(), 600);
-      }, 3000);
-    }
-  });
-</script>
-
 <div class="home-scope">
   <div class="home-wrap">
     
-    <!-- Unified Container Structure -->
+    <!-- Restored Layout Grid Setup -->
     <div class="form-page-grid">
       
-      <!-- Left Column: Form Details -->
+      <!-- Left Column: Headers and Form Controls -->
       <div>
-        <div class="eyebrow">Reading room · New record</div>
-        <h1>Add a student</h1>
-        <p class="form-sub">Add their details once — you'll be able to allot, check, or search for them right after.</p>
+        <div class="eyebrow">Reading room · Seat management</div>
+        <h1>Manage a seat</h1>
+        <p class="form-sub">Allot a seat to a student, or free one up when they're done.</p>
 
-        {% if error %}
-          <div class="form-error">{{ error }}</div>
-        {% endif %}
+        <div class="tab-switch">
+          <button type="button" class="tab-btn {{ 'active' if active_tab != 'unallot' }}" onclick="showTab('allot')">Allot seat</button>
+          <button type="button" class="tab-btn {{ 'active' if active_tab == 'unallot' }}" onclick="showTab('unallot')">Unallot seat</button>
+        </div>
 
         <div class="form-card">
-          <form method="POST" action="/add-student">
-            <label for="name">Student name</label>
-            <input type="text" id="name" name="name" required>
+          <!-- Allotment Panel -->
+          <div id="panel-allot" class="tab-panel {{ 'active' if active_tab != 'unallot' }}">
+            <form method="POST" action="/manage-seat">
+              <input type="hidden" name="action" value="allot">
+              <label for="allot_id">Student ID</label>
+              <input type="number" id="allot_id" name="student_id" required>
 
-            <label for="student_id">Student ID</label>
-            <input type="number" id="student_id" name="student_id" required>
+              {% if message and active_tab != 'unallot' %}
+                <div class="result-box">{{ message }}</div>
+              {% endif %}
 
-            <label for="contact">Contact number</label>
-            <input type="text" id="contact" name="contact" required>
+              <button type="submit">Allot seat</button>
+            </form>
+          </div>
 
-            <label for="shift">Preferred shift</label>
-            <select id="shift" name="shift">
-              <option value="9-2">Morning · 9 AM – 2 PM</option>
-              <option value="2-7">Afternoon · 2 PM – 7 PM</option>
-              <option value="9-7">Full day · 9 AM – 7 PM</option>
-            </select>
+          <!-- Unallotment Panel -->
+          <div id="panel-unallot" class="tab-panel {{ 'active' if active_tab == 'unallot' }}">
+            <form method="POST" action="/manage-seat">
+              <input type="hidden" name="action" value="unallot">
+              <label for="unallot_id">Student ID</label>
+              <input type="number" id="unallot_id" name="student_id" required>
 
-            {% if message %}
-              <div class="result-box">{{ message }}</div>
-            {% endif %}
+              {% if message and active_tab == 'unallot' %}
+                <div class="result-box">{{ message }}</div>
+              {% endif %}
 
-            <button type="submit">Add student</button>
-          </form>
-        </div>
-      </div>
-
- <!-- Right Column: Re-aligned Visual Anchor Card with Expanded Guidelines -->
-      <div style="margin-top: 104px;">
-        <div class="context-card">
-          <h3>Quick Guidelines</h3>
-          <p>Creating a unique student record allows the database to instantly prevent duplicate seat allocations across overlapping daily shifts.</p>
-          
-          <!-- Extended content to increase container length naturally -->
-          <ul style="margin: 0 0 24px 0; padding-left: 20px; color: rgba(255, 255, 255, 0.85); font-size: 13.5px; line-height: 1.8;">
-            <li style="margin-bottom: 8px;"><strong>Unique ID Rule:</strong> Ensure the assigned ID does not conflict with active allocations.</li>
-            <li style="margin-bottom: 8px;"><strong>Shift Lock:</strong> The preferred shift choice serves as the default suggestion during automated seat allotments.</li>
-            <li style="margin-bottom: 0;"><strong>Updates:</strong> Student profiles can be updated or released later via the "Manage Seat" control portal.</li>
-          </ul>
-
-          <div class="info-badge">
-            <strong>Note:</strong> Make sure the Student ID matches their official library card number to allow hassle-free seat check-ins later.
+              <button type="submit">Unallot seat</button>
+            </form>
           </div>
         </div>
       </div>
-    
-    </div>
-  </div>
 
-  
-  <!-- Global Theme Footer -->
-  <div class="home-footer">
+      <!-- Right Column: Perfectly Aligned Heading Box & Restored Sleek Scale -->
+      <div style="margin-top: 32px;">
+        <div class="context-card">
+          <h3>Allocation Rules</h3>
+          <p>The allocation engine automatically registers workspace sessions using live structural checks.</p>
+          
+          <ul style="margin: 0 0 24px 0; padding-left: 20px; color: rgba(255, 255, 255, 0.85); font-size: 13.5px; line-height: 1.8;">
+            <li style="margin-bottom: 8px;"><strong>Auto Allotment:</strong> The platform instantly assigns the next available sequential number matching the student's preferred shift.</li>
+            <li style="margin-bottom: 8px;"><strong>Status Verification:</strong> Students must be added via the database records panel before checking into a terminal seat.</li>
+            <li style="margin-bottom: 0;"><strong>Session Clears:</strong> Selecting "Unallot" immediately flushes active workspace markers to keep the real-time grid open.</li>
+          </ul>
+
+          <div class="info-badge">
+            <strong>Check Status:</strong> Run a rapid live availability scan anytime over on the primary dashboard index.
+          </div>
+        </div>
+      </div>
+
+    </div> <!-- Closes .form-page-grid -->
+  </div> <!-- Closes .home-wrap -->
+
+  <!-- Full-Width Page Footer (Correctly decoupled from layout bounds) -->
+  <div class="home-footer" style="margin-left: 0; margin-right: 0; width: 100%;">
     <div class="home-wrap">
       <div class="footer-grid">
         <div class="footer-col">
@@ -313,4 +323,24 @@
     </div>
   </div>
 </div>
+
+<script>
+  function showTab(tab){
+    document.getElementById('panel-allot').classList.toggle('active', tab === 'allot');
+    document.getElementById('panel-unallot').classList.toggle('active', tab === 'unallot');
+    document.querySelectorAll('.tab-btn').forEach((btn, i) => {
+      btn.classList.toggle('active', (tab === 'allot' && i === 0) || (tab === 'unallot' && i === 1));
+    });
+  }
+
+  window.addEventListener('DOMContentLoaded', () => {
+    const box = document.querySelector('.result-box');
+    if (box) {
+      setTimeout(() => {
+        box.classList.add('fade-out');
+        setTimeout(() => box.remove(), 600);
+      }, 3000);
+    }
+  });
+</script>
 {% endblock %}
