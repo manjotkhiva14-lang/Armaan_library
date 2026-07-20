@@ -1,6 +1,8 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <title>Armaan Library</title>
@@ -11,11 +13,16 @@
             <div class="brand-mark"></div>
             <div class="brand-name">Armaan Library</div>
         </div>
-        <a href="/" class="{{ 'active' if request.path == '/' }}">Home</a>
-        <a href="/add-student" class="{{ 'active' if request.path == '/add-student' }}">Add Student</a>
-        <a href="/manage-seat" class="{{ 'active' if request.path == '/manage-seat' }}">Manage Seat</a>
-        <a href="/check" class="{{ 'active' if request.path == '/check' }}">Check</a>
-        <a href="/about" class="{{ 'active' if request.path == '/about' }}">About</a>
+        <button class="nav-toggle" onclick="document.querySelector('.nav-links').classList.toggle('open')" aria-label="Menu">
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="nav-links">
+            <a href="/" class="{{ 'active' if request.path == '/' }}">Home</a>
+            <a href="/add-student" class="{{ 'active' if request.path == '/add-student' }}">Add Student</a>
+            <a href="/manage-seat" class="{{ 'active' if request.path == '/manage-seat' }}">Manage Seat</a>
+            <a href="/check" class="{{ 'active' if request.path == '/check' }}">Check</a>
+            <a href="/about" class="{{ 'active' if request.path == '/about' }}">About</a>
+        </div>
     </nav>
     {% block content %}
     {% endblock %}

@@ -43,6 +43,8 @@ nav {
     gap: 4px;
     align-items: center;
     border-bottom: 1px solid var(--line);
+    position: relative;
+    flex-wrap: nowrap;
 }
 
 .brand {
@@ -78,6 +80,23 @@ nav {
     color: var(--ink);
 }
 
+.nav-links {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.nav-toggle {
+    display: none;
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: var(--ink);
+    cursor: pointer;
+    padding: 10px;
+    margin-left: auto;
+}
+
 nav a {
     color: var(--ink-faint);
     text-decoration: none;
@@ -86,6 +105,42 @@ nav a {
     padding: 16px 14px;
     border-bottom: 2px solid transparent;
     transition: color 0.15s, border-color 0.15s;
+}
+
+@media (max-width: 780px) {
+    nav {
+        padding: 0 16px;
+        flex-wrap: wrap;
+    }
+    .brand {
+        border-right: none;
+        margin-right: 0;
+        flex: 1;
+    }
+    .nav-toggle {
+        display: block;
+    }
+    .nav-links {
+        display: none;
+        flex-direction: column;
+        align-items: stretch;
+        width: 100%;
+        gap: 0;
+        border-top: 1px solid var(--line);
+        padding: 8px 0;
+    }
+    .nav-links.open {
+        display: flex;
+    }
+    nav a {
+        padding: 12px 6px;
+        width: 100%;
+    }
+    nav a.active {
+        border-bottom: none;
+        background: var(--paper-deep);
+        border-radius: 4px;
+    }
 }
 
 nav a:hover {
@@ -131,6 +186,11 @@ nav a.active {
 .stat-card.accent-brass { border-left-color: var(--brass-bright); }
 .stat-card.accent-green { border-left-color: var(--lamp-green); }
 .stat-card.accent-rust  { border-left-color: var(--rust); }
+
+@media (max-width: 480px) {
+    .stat-card { min-width: 100%; }
+    .container { padding: 0 16px; }
+}
 
 .stat-label {
     color: var(--ink-faint);
