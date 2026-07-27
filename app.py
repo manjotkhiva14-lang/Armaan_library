@@ -6,7 +6,7 @@ man = Management()
 man.load_students()
 man.load_seats()
 
-app = Flask(__name__)
+app = Flask(__name__)   
 
 @app.route("/")
 def home():
