@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for
 from library.management import Management
 from library.students import Student
 
+
 man = Management()
 man.load_students()
 man.load_seats()
@@ -55,6 +56,7 @@ def add_student():
         student = Student(name, student_id, contact, shift)
         man.students[student_id] = student
         man.save_students()
+        
 
         return render_template("add_student.html", message=f"{name} added successfully")
     return render_template("add_student.html")
